@@ -23,6 +23,8 @@ def load_hashes(base='./data/episodes'):
 
 def videopaths(base):
     for name in os.listdir(base):
+        if name.startswith('.'):
+            continue
         yield os.path.join(base, name)
 
 def show_similarity(X):
