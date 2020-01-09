@@ -29,8 +29,8 @@ class SequenceFinder(object):
         return k_means.cluster_centers_[:, 0].mean()
 
     def similarity(self, episodes):
-        dist = []
         # https://en.wikipedia.org/wiki/Hamming_distance
+        dist = []
         hamming = DistanceMetric.get_metric('hamming')
         m = len(episodes[0])
         for i in range(m):

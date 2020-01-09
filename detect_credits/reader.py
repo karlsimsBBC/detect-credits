@@ -1,12 +1,19 @@
 import cv2
 
-from skipintro.video import Video
+from detect_credits import video
 
 
 class VideoReader(object):
 
     def __init__(self, path):
         self.path = path
+
+    def read_video(self, mode=video.BIT_ARRAY_MODE):
+        if mode == video.MATRIX_MODE:
+            frames = self.read_frames()
+        elif mode == video.BIT_ARRAY_MODE:
+            frames = self.read_hashes()
+        return video.Video(self.path, frames, self.FPS, mode)
 
     def read_frames(self):
         frames = []
@@ -16,7 +23,7 @@ class VideoReader(object):
                 break
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             frames.append(frame)
-        return Video(self.path, frames, self.FPS)
+        return frames
 
     def read_hashes(self):
         hashes = []
@@ -26,23 +33,21 @@ class VideoReader(object):
                 break
             frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             hashes.append(self.dhash(frame))
-        return HashedVideo(self.path, hashes, self.FPS)
+        return hashes
 
     def dhash(self, image, hash_size=8):
         resized = cv2.resize(image, (hash_size + 1, hash_size))
         diff = resized[:, 1:] > resized[:, :-1]
-        return sum([2 ** i for (i, v) in enumerate(diff.flatten()) if v])
+        return diff.flatten()
 
     def __enter__(self):
         self.capture = cv2.VideoCapture(self.path)
         self.FPS = self.capture.get(cv2.CAP_PROP_FPS)
         if not self.capture.isOpened():
-            print("Error opening video file")
-            return None
+            raise FileNotFoundError('Could not find file %s' % self.path)
         return self
 
     def __exit__(self, _type, value, traceback):
         self.capture.release()
         if any([_type, value, traceback]):
-            print('ERROR')
-            print(f'exit: {_type}, {value}, {traceback}')
+            raise _type(value, traceback)

@@ -1,9 +1,13 @@
-import unittest
+# import unittest
 
-from skipintro.detect import IntroFinder
+# from skipintro.detect import SequenceFinder
 
-class TestSimilarity(unittest.TestCase):
+# class TestSimilarity(unittest.TestCase):
 
-    def test_similarity(self):
-        self.assertEqual(1, 1)
+
+#     def test_similarity(self):
+#         # seq = SequenceFinder()
+        
+
+        
 
