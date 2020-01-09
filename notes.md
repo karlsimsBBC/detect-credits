@@ -13,3 +13,4 @@
 * how to split up soaps. 
     - maybe compare to average image
 * do we get series as a totality or episode by episode.* darkness might be a prob
+* some dont have intros

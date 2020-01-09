@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 from reader import VideoReader
 
-def load_data(base='./data/episodes'):
+def load_episodes(base='./data/episodes'):
     videos = []
     for path in videopaths(base):
         with VideoReader(path) as vf:
@@ -45,7 +45,7 @@ def show_mean_similarity(X, names):
         ax.set_yticks(np.arange(0.8, 1.05, step=0.05))
     plt.show()
 
-def show_frames(episode, intro=None, colors=['gray', 'pink']):
+def show_frames(episode, intro=None, colors=['bone', 'autumn']):
     fps = 25
     if intro:
         start_frame = int(intro['start'] * fps)

@@ -1,3 +1,6 @@
+import os
+
+import numpy as np
 import cv2
 
 from detect_credits import video
@@ -26,12 +29,12 @@ class VideoReader(object):
         return frames
 
     def read_hashes(self):
-        return [self.dhash(frame) for frame in self.read_frames()]
+        return np.array([self.dhash(frame) for frame in self.read_frames()])
 
     def dhash(self, image, hash_size=8):
         resized = cv2.resize(image, (hash_size + 1, hash_size))
         diff = resized[:, 1:] > resized[:, :-1]
-        return diff.flatten()
+        return diff.flatten().astype('int')
 
     def dhash2(self, image, hash_size=8):
         frames = self.dhash(image, hash_size=hash_size)
