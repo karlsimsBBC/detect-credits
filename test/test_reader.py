@@ -21,7 +21,7 @@ class TestReader(unittest.TestCase):
 
     def test_read_frames(self):
         with VideoReader(self.path) as reader:
-            video = reader.read_video()
+            video = reader.read_video(mode='matrix')
         expeted_len = 1500
         expected_shape = (56, 100)
         expected_fps = 25
