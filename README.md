@@ -1,14 +1,13 @@
-# Opening and closing credit detection
+# POC for opening and closing sequence detection across series episodes
+Proof of concept for automatic detection of program title and credit sequences per series. Process is achieved using sequence matching and frame similarity metrics across collections of episodes without the need for supplementary data or model.
 
-## Working assumptions
-* Across series, credits will likely be structurally similar enough per episode to correlate their sequences.
-* Repeated sequeces of images across episodes are generally exclusive to credit sequences.
-* Opening credits are longer that n seconds (at least 5, shorter than this arguably dosen't need skipping) 
-* There might be clips before or after credits.
-* Opening and closing credits are within the first and last n minitues (~=5) of a episode.
+Works under the assumptions that:
+* Title and credit sequences normally occur within ~5 min of the program start and end time respectively
+* Title and credit sequences are at least ~5 seconds long.
+* Apart from the opening and closing sequences, there are very few repeated sequences that are both more than 5 seconds long and within the first 5 minutes of the show.
+* Opening and closing sequences are similar enough to correlate across episodes.
 
-## Existing IBL Credit classification
-On initial inspection, it seems that it uses the assumption that closing credit sequences have similarity accross programmes. E.g. Text, dark background. This uses some form of binary classifier to detect wether frames are a credit or not credit—have not looked into the details of model yet. 
-* https://confluence.dev.bbc.co.uk/display/IBL/iBL+Credibl+Image+Classifier
-* https://confluence.dev.bbc.co.uk/display/IBL/iBL+Credibl+Gif+Generator
-* https://confluence.dev.bbc.co.uk/display/IBL/iBL+Credibl+Detector
+### Todo
+Refactor implementation.
+Test on more examples and find cases where it fails.
+
